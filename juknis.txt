@@ -1,0 +1,365 @@
+i
+
+PANDUAN EKSHIBISI KOMPETISI KECERDASAN ARTIFISIAL (KA)
+LOMBA KOMPETENSI SISWA (LKS) TINGKAT NASIONAL 2026 Diterbitkan oleh:
+Pusat Prestasi Nasional Kementerian Pendidikan Dasar dan Menengah Jalan Gardu, Srengseng Sawah, Jagakarsa, Jakarta Selatan, 12640
+Pengarah: Suharti
+Mariman Darto Maria Veronica Irene Herdjiono
+Penanggung Jawab: Retno Juni Rochmaningsih
+Fatma Indriasari Tim Penyusun: Ricky Suryo Utomo Rezki Yunanda Ahsan Awadullah Cleine Pradita Tim Kontributor: Tim Kerja Vokasi dan Kewirausahaan PUSPRESNAS Desain dan Layout : Muhammad Nafi' Rizaldi
+©2026 Kementerian Pendidikan Dasar dan Menengah Hak cipta dilindungi Undang-Undang. All rights reserved.
+ii
+
+KATA PENGANTAR
+Puji syukur kita panjatkan ke hadirat Tuhan Yang Maha Esa. Kegiatan ajang talenta merupakan wahana aktualisasi unjuk prestasi peserta didik, sekaligus menjadi momentum strategis untuk menemukenali anak-anak berbakat dengan potensi di atas rata-rata. Melalui ajang ini, murid mendapatkan tantangan untuk menghasilkan karya terbaik dan mengasah kompetensi unggul. Lebih dari sekadar kompetisi, kegiatan ini adalah bagian integral dari proses pembinaan prestasi berkelanjutan yang turut andil dalam membentuk karakter murid menuju proses pembinaan prestasi talenta secara berkelanjutan.
+Dalam rangka mendukung dan melaksanakan Instruksi Presiden (Inpres) Nomor 1 Tahun 2025 tentang Efisiensi Belanja Dalam Pelaksanaan APBN dan APBD Tahun Anggaran 2026, Pusat Prestasi Nasional menyelenggarakan ajang talenta secara luring dan daring dengan mengedepankan prinsip penghematan. Langkah ini diambil sebagai upaya mendukung efisiensi penggunaan anggaran negara demi menjaga stabilitas keuangan, serta memastikan bahwa anggaran yang dikeluarkan dapat dimaksimalkan manfaatnya bagi masyarakat.
+Menandai semangat dalam "Mencerdaskan dan Memajukan Bangsa", Kementerian Pendidikan Dasar dan Menengah berkomitmen melaksanakan pendidikan bermutu dan pendidikan untuk semua. Aktualisasi prestasi melalui ajang talenta ini didasarkan pada minat dan bakat murid. Pemerintah memberikan perhatian serius terhadap anak-anak berprestasi, di mana mereka yang berhasil akan mendapatkan manfaat pengembangan karir belajar maupun profesional, seperti beasiswa atau pembinaan lanjut.
+Lomba Kompetensi Siswa (LKS) Dikmen 2026 adalah sebuah ajang talenta di bidang Vokasi yang diselenggarakan untuk peserta didik Sekolah Menengah Kejuruan (SMK/MAK) dan Sekolah Menengah Atas (SMA/MA) sederajat. LKS Tahun 2026 akan melombakan 37 cabang dan 1 ekshibisi yaitu Kecerdasan Artifisial (KA/AI).
+Panduan ini disusun untuk memberikan informasi dan gambaran mengenai penyelenggaraan ekshibisi AI pada ajang LKS Dikmen 2026 kepada para peserta, pendamping, pembina, juri, dan para pemangku kepentingan lainnya. Selamat mempersiapkan diri, belajar, berlatih, dan bekerja sebaik-baiknya agar kegiatan ini dapat terlaksana sesuai rencana dan memberikan hasil maksimal.
+Kami mengucapkan terima kasih kepada semua pihak yang telah berpartisipasi dan berperan aktif dalam penyusunan pedoman ini.
+Jakarta, Juni 2026 Kepala
+Dr. Maria Veronica Irene Herdjiono, S.E., M.Si NIP 198103292012122001
+iii
+
+DAFTAR ISI
+
+KATA PENGANTAR
+
+iii
+
+DAFTAR ISI
+
+iv
+
+BAB I PENDAHULUAN
+
+1
+
+A. Latar Belakang
+
+1
+
+B. Dasar Hukum
+
+2
+
+C. Tujuan
+
+2
+
+D. Hasil yang Diharapkan
+
+3
+
+E. Logo, Tema, dan Tagar
+
+3
+
+BAB II PENYELENGGARAAN
+
+4
+
+A. Penyelenggara dan Sponsor
+
+4
+
+B. Sasaran Peserta LKS Dikmen Tingkat Nasional 2026
+
+4
+
+C. Jadwal
+
+4
+
+D. Mekanisme
+
+5
+
+E. Proses Seleksi
+
+5
+
+Tahap 1 -- Babak Seleksi Daring
+
+5
+
+Tahap 2 -- Final LKS Nasional
+
+6
+
+F. Penilaian
+
+6
+
+G. Penghargaan
+
+6
+
+BAB III TEKNIS PELAKSANAAN KEGIATAN
+
+7
+
+A. Rangkaian Kegiatan Final di Jakarta
+
+7
+
+B. Ketentuan Teknis Pelaksanaan Final
+
+7
+
+BAB IV PENUTUP
+
+9
+
+LAMPIRAN
+
+10
+
+iv
+
+BAB I
+PENDAHULUAN
+A. Latar Belakang Kecerdasan Artifisial (KA) merupakan salah satu cabang ilmu computer science
+berupa teknologi dan atau simulasi yang diterapkan pada komputer atau machine dengan meniru cara berpikir manusia, sehingga teknologi ini memiliki kecerdasan layaknya manusia. Di era revolusi industri 4.0 saat ini, bidang keilmuan KA sudah banyak diterapkan oleh industri dan memiliki segmen yang sangat beragam terutama di segmen digital industri. Tahun 2018 sendiri, menurut data dari CNN Indonesia, bidang ini menyumbang 8,5% dari produk domestik bruto. Hal ini karena KA sudah banyak digunakan untuk memudahkan dan membantu manusia /industri dalam menghemat resources waktu, efektifitas dan meningkatkan produktivitas. KA juga merupakan satu dari empat The Fourth Industrial Revolution (IR4) di era 4.0 selain Cyber-Physical System, the Internet-of-Things (IoT), Cloud Computing. Teknologi AI dibagi menjadi beberapa cabang (branch) di antaranya : Neural Network, Data Mining, Statistical AI, Pattern Recognition, Fuzzy Logic, Swarm Intelligence, Genetic Algorithm, Expert System. Cabang-cabang dari AI tersebut dapat diimplementasikan baik pada perangkat lunak maupun hardware/robotic. Untuk dapat mengimplementasikan teknologi AI, anggota tim pengembang / peserta lomba harus memiliki dasar keilmuan di bidang Matematika, Logika dasar, Rekayasa Perangkat Lunak, dan minimal menguasai kompetensi salah satu Bahasa pemrograman (direkomendasikan : Python, Java, C, C#) atau lainnya.
+KA memiliki banyak peluang karir yang menjanjikan, di antaranya Peneliti, dimana area fokus akan menangani perbaikan penelitian atau algoritma machine learning, di mana biasanya area ini sering dicari untuk membantu industri dan pemerintah untuk memberikan solusi dari masalah menggunakan machine learning (misalnya healthcare, simulasi pembelajaran), computer vision/recognition untuk membantu membuat deteksi object seperti project-project CCTV cerdas yang mengawasi dan melaporkan pelanggaran lalu lintas, kemudian developer untuk mengelola Data Scientist yang dapat diaplikasikan di banyak bidang.
+Lomba Kompetensi Siswa (LKS) Dikmen Tingkat Nasional 2026 atau disingkat dengan LKS Dikmen Tingkat Nasional 2026 diselenggarakan sebagai upaya berkelanjutan untuk mengembangkan kompetensi murid dan meningkatkan kualitas pendidikan vokasi di Indonesia untuk menjawab tantangan global yang semakin kompleks. Penyelenggaraan LKS Dikmen Tingkat Nasional 2026 dirancang dengan mempertimbangkan pengaruh faktor penting diantaranya reformasi industri 4.0 dan transformasi digital. Kompetisi ini akan menguji kemampuan murid dalam memanfaatkan perkembangan teknologi terkini seperti Kecerdasan Artifisial (KA), big data, internet of things (IoT), dan otomatisasi dalam berbagai bidang kejuruan. Hal ini bertujuan untuk mempersiapkan generasi muda yang mampu cepat beradaptasi dan berkontribusi dalam era digital. Selain faktor penguasaan teknologi, LKS Dikmen Tahun 2026 akan mengutamakan penilaian terhadap future skills, seperti kemampuan berpikir kritis, kreativitas, pemecahan masalah, kolaborasi, dan komunikasi. Oleh karena itulah pada tahun 2026 ini LKS Dikmen juga akan melaksanakan Ekshibisi Kecerdasan Artifisial (KA).
+1
+
+B. Dasar Hukum 1. Undang-undang No 20 Tahun 2003 Tentang Sistem Pendidikan Nasional; 2. Peraturan Pemerintah (PP) Nomor 17 Tahun 2010 tentang Pengelolaan Dan Penyelenggaraan Pendidikan, sebagaimana telah diubah dengan Peraturan Pemerintah Nomor 66 Tahun 2010 tentang Perubahan atas Peraturan Pemerintah Nomor 17 Tahun 2010 tentang Pengelolaan dan Penyelenggaraan Pendidikan; 3. Peraturan Presiden Nomor Nomor 12 Tahun 2025 tentang Rencana Pembangunan Jangka Menengah Nasional (RPJMN) Tahun 2025-2029; 4. Peraturan Presiden Nomor 87 Tahun 2017 tentang Penguatan Pendidikan Karakter; 5. Peraturan Presiden Nomor 108 Tahun 2024 tentang Desain Besar Manajemen Talenta Nasional; 6. Instruksi Presiden nomor 9 tahun 2016 tentang Revitalisasi Sekolah Menengah Kejuruan untuk Peningkatan Daya Saing Sumberdaya Manusia Indonesia; 7. Peraturan Menteri Pendidikan Dasar dan Menengah No. 1 Tahun 2024 tentang Organisasi dan Tata Kerja Kementerian Pendidikan Dasar dan Menengah; 8. Peraturan Menteri Pendidikan Dasar dan Menengah No. 25 Tahun 2025 tentang Manajemen Talenta Murid; 9. Peraturan Menteri Pendidikan dan Kebudayaan Nomor 62 Tahun 2014 Tentang Kegiatan Ekstrakurikuler Pada Pendidikan Dasar Dan Pendidikan Menengah; 10. Peraturan Menteri Pendidikan dan Kebudayaan Nomor Nomor 23 Tahun 2015 tentang Penumbuhan Budi Pekerti; 11. Keputusan Menteri Pendidikan Dasar dan Menengah No. 16 Tahun 2026 tentang Tata Kelola Penyelenggaraan Ajang;
+C. Tujuan 1. Tujuan Umum Kegiatan Ekshibisi Kecerdasan Artifisial (KA/AI) dalam rangkaian Lomba Kompetensi Siswa Nasional Jenjang Pendidikan Menengah Tahun 2026 bertujuan untuk mendorong partisipasi aktif murid dalam pengembangan solusi-solusi berbasis kecerdasan artifisial melalui pendekatan kompetisi dan eksebisi berbasis inovasi, serta membangun kolaborasi lintas sektor dalam penguatan pembelajaran teknologi.
+2. Tujuan Khusus a) Mewujudkan ekosistem pembelajaran KA dan coding berbasis kolaborasi. b) Wadah ekspresi dan apresiasi bagi peserta didik yang memiliki karya dan inovasi KA. c) Memperluas pemahaman dan kesadaran publik terhadap pentingnya literasi teknologi dalam dunia pendidikan.
+2
+
+D. Hasil yang Diharapkan Hasil yang diharapkan dari kegiatan ekshibisi ini adalah sebagai berikut: 1. Teridentifikasinya peserta didik yang memiliki minat dan talenta di bidang KA dan coding. 2. Terdokumentasikannya karya dan inovasi KA dalam publikasi resmi. 3. Tersusunnya jejaring komunitas pembelajar KA di sekolah menengah. 4. Terbangunnya kesadaran publik tentang dampak dan pentingnya KA dan koding dalam Pendidikan.
+E. Logo, Tema, dan Tagar Logo LKS Dikmen Tingkat Nasional dianalogikan jumlah jari manusia yang mana jari-jari tersebut menggambarkan sebagai kemampuan atau kompetensi peserta didik yang mumpuni, cerdas dan berkarakter.
+Tema : Talenta Vokasi Memajukan Bangsa Tagar : #TalentaVokasiMendunia
+3
+
+BAB II PENYELENGGARAAN
+
+A. Penyelenggara dan Sponsor Kegiatan Ekshibisi Kecerdasan Artifisial (Artificial Intellegence/KA) dilaksanakan atas kerjasama strategis antara Pusat Prestasi Nasional, Kementerian Pendidikan Dasar dan Menengah dan Merkle Innovation.
+B. Sasaran Peserta LKS Dikmen Tingkat Nasional 2026 Sasaran Peserta Ekshibisi KA pada LKS Dikmen Tingkat Nasional 2026 adalah sebagai berikut:
+1. Peserta dari dinas pendidikan provinsi yang telah ditetapkan melalui SK 2. Seluruh murid SMK/SMA/MA/MAK/sederajat yang aktif dari seluruh Indonesia.
+
+C. Jadwal
+
+No
+
+Jenis Kegiatan
+
+1. Sosialisasi panduan kompetisi
+
+2. Pendaftaran online di laman ekshibisi AI yang direferensikan oleh pusprenas (dibuka)
+
+3. Masa submission (Masa Penyerahan hasil), link submission: - https://forms.office.com/r/6phQnAceYA
+4 Babak seleksi daring (berlangsung - hari)
+
+Waktu 15 Juni 2026 On going - 22 Juni 2026 22 Juni 2026 ­ 03 Juli 2026
+06 Juli ­ 10 Juli 2026
+
+5. Pengumuman 3 tim finalis
+
+13 Juli 2026
+
+6. Ekshibisi KA pada rangkaian Final LKS Nasional (luring, Jakarta Utara)
+
+29 Juli 2026 ­ 1 Agustus 2026
+
+*Catatan : Jadwal tahapan sampai pelaksanaan final bersifat tentatif
+
+4
+
+D. Mekanisme
+
+Ekshibisi Kecerdasan Artifisial (KA) dilaksanakan dalam bentuk kompetisi berbasis studi kasus (case study). Setiap tim merancang, membangun, dan mempresentasikan aplikasi berbasis KA untuk menyelesaikan permasalahan dunia nyata sesuai challenge case yang ditetapkan panitia. Mekanisme terdiri dari proses seleksi; materi, komponen, dan bobot penilaian; serta penilaian sebagai berikut.
+E. Proses Seleksi Seleksi dilaksanakan secara bertingkat melalui dua tahap: dari seluruh pendaftar nasional disaring menjadi 3 tim terpilih pada babak seleksi daring, kemudian 3 tim tersebut maju ke babak final di Jakarta untuk penjurian penentuan juara.
+
+Tahap Tahap 1
+Tahap 2
+
+Kegiatan
+Babak Seleksi Daring (penyaringan massal)
+Final LKS Nasional (penjurian, luring di Jakarta)
+
+Output Peserta
+
+Hasil
+
+Proposal + Pitch Video + 3 Tim Terbaik Video Demo
+
+Presentasi + Demo + Tanya Jawab
+
+Juara & Penghargaan
+
+Tahap 1 -- Babak Seleksi Daring
+Tujuan: menyaring seluruh pendaftar nasional menjadi 3 tim terpilih. Setiap tim menyerahkan tiga komponen melalui platform pendaftaran
+a. Proposal Solusi (Problem Canvas) -- dokumen maksimal 4 halaman yang memuat challenge case yang dipilih, rumusan masalah, ide solusi berbasis AI, target pengguna, pendekatan teknis dan tools, rencana sumber data (open data/sintetis/publik), serta pernyataan Responsible AI (minimal satu risiko dan strategi mitigasinya).
+b. Video Pitch dan Demo Aplikasi -- video berdurasi 2­5 menit yang menjelaskan masalah, solusi yang ditawarkan, dan menunjukkan cara kerja aplikasi.
+c. Aplikasi (working app) -- aplikasi/prototipe fungsional berbasis AI yang dapat diuji coba, disertai tautan akses dan/atau repositori kode.
+Ketentuan pengerjaan:
+a. Tim terdiri dari maksimal 5 orang anggota murid SMK/SMA/MA/MAK/sederajat dari sekolah yang sama.(di luar pendamping)
+b. Seluruh karya wajib dikerjakan oleh tim peserta. Mentor/pendamping memberikan arahan, bukan mengerjakan atau menulis kode.
+c. Wajib menggunakan data terbuka (open data), sintetis, atau tersedia untuk publik dengan menyertakan link referensi. Dilarang menggunakan data pribadi atau sensitif.
+d. Seluruh tools, model AI, dan sumber data wajib dicantumkan (disclosure) dalam proposal.
+e. Peserta diperbolehkan menggunakan tools AI yang legal (mis. ChatGPT, Claude, Gemini), API, serta platform no-code/low-code. Tools gratis (free-tier) sudah memadai.
+
+5
+
+Tahap 2 -- Final LKS Nasional
+Sebanyak 3 tim terpilih berdasarkan keputusan juri maju ke babak final secara luring di Jakarta untuk penjurian penentuan juara, dalam bentuk presentasi (pitch), demonstrasi aplikasi secara langsung, dan sesi tanya jawab di hadapan dewan juri. Rincian teknis pelaksanaan final diatur pada BAB III Teknis Pelaksanaan Kegiatan.
+a. Presentasi solusi oleh tim (memaparkan masalah, solusi KA, dan dampak). b. Demonstrasi aplikasi secara langsung kepada dewan juri. c. Sesi tanya jawab untuk menggali pemahaman, orisinalitas karya, dan penguasaan
+teknis tim. d. Pengumuman pemenang dan pemberian penghargaan.
+
+F. Penilaian Materi kompetisi berbasis challenge case yang ditetapkan panitia. Komponen yang dinilai dan bobotnya sebagai berikut:
+
+No
+
+Kriteria Penilaian
+
+Bobot
+
+1 Pemahaman masalah & relevansi terhadap challenge case
+
+20%
+
+2 Kreativitas & inovasi solusi
+
+20%
+
+3 Pemanfaatan AI yang efektif & tepat guna (Berdampak)
+
+20%
+
+4 Responsible AI (identifikasi risiko, mitigasi, dan peran penilaian manusia)
+
+15%
+
+5 Fungsionalitas aplikasi/prototipe
+
+15%
+
+6 Kejelasan presentasi (pitch, video, dan dokumentasi)
+
+10%
+
+TOTAL
+
+100%
+
+Penilaian menekankan pada kreativitas, pemanfaatan KA yang bertanggung jawab (Responsible AI), serta dampak nyata terhadap dunia nyata -- bukan semata-mata kesempurnaan teknis. Ketentuan penilaian:
+
+a. Rubrik pada tabel di atas digunakan pada babak seleksi daring (Tahap 1) untuk menetapkan 3 tim finalis.
+b. Pada babak final (Tahap 2), rubrik yang sama digunakan, dengan penilaian dapat ditambah aspek penguasaan tim saat sesi tanya jawab serta orisinalitas karya, dengan bobot yang ditetapkan dewan juri.
+c. Penilaian dilakukan oleh panel/dewan juri yang ditetapkan panitia. d. Keputusan dewan juri bersifat final dan tidak dapat diganggu gugat.
+
+G. Penghargaan Juara 1 Rp. 5.000.000, Juara 2 Rp. 4.000.000, Juara 3 Rp.3.000.000, Medali 3 buah, Piala 3 Buah.
+
+6
+
+BAB III TEKNIS PELAKSANAAN KEGIATAN
+
+Ekshibisi Kecerdasan Artifisial (KA/AI) pada LKS Dikmen Tingkat Nasional 2026 dilaksanakan secara bertingkat melalui dua tahap: babak seleksi daring untuk menyaring seluruh pendaftar nasional menjadi 3 tim terbaik, dilanjutkan babak final yang diselenggarakan secara luring di Jakarta. Bab ini memuat teknis pelaksanaan final.
+
+A. Rangkaian Kegiatan Final di Jakarta
+Babak final diselenggarakan secara luring di Jakarta Utara. Seluruh tim finalis wajib hadir secara fisik mengikuti rangkaian kegiatan berikut:
+
+Hari
+
+Tanggal
+
+Kegiatan
+
+Lokasi
+
+Hari 1 29 Juli 2026
+
+Visit Industri
+
+Jakarta
+
+Hari 2 30 Juli 2026 Hari 3 31 Juli 2026 Hari 4 01 Agustus 2026
+
+Pelaksanaan ekshibisi : Presentasi dan
+
+SMKN 4
+
+demo, peserta show hasil karya di masing Jakarta
+
+- masing booth
+
+Seremoni penutupan, pengumuman pemenang, dan pemberian apresiasi/penghargaan
+
+SMKN 4 Jakarta
+
+Dokumentasi dan publikasi karya inovasi SMKN 4 KA peserta (pengembangan ekosistem Jakarta pembelajaran KA)
+
+B. Ketentuan Teknis Pelaksanaan Final a. Peserta yang hadir -- setiap tim hadir max 5 anggota. b. Venue -- tempat penyelenggaraan (ruang acara, listrik, jaringan internet, dan fasilitas penjurian) ditanggung oleh panitia. c. Akomodasi & transportasi -- ditanggung penyelenggara d. Perangkat -- setiap tim wajib membawa laptop sendiri untuk keperluan presentasi dan demonstrasi aplikasi. e. Alokasi waktu penjurian per tim -- total 35 menit per tim, terdiri dari pitch/presentasi 15 menit, demonstrasi aplikasi 10 menit, dan sesi tanya jawab 10 menit.
+
+7
+
+Alokasi Waktu Penjurian per Tim
+
+Sesi
+
+Durasi
+
+Pitch / Presentasi
+
+15 menit
+
+Demonstrasi Aplikasi
+
+10 menit
+
+Tanya Jawab
+
+10 menit
+
+Total per Tim
+
+35 menit
+
+Keterangan
+Pemaparan masalah, solusi KA, dan dampak.
+Peragaan langsung alur input  proses  output.
+Pendalaman pemahaman, orisinalitas, dan penguasaan teknis.
+
+8
+
+BAB IV PENUTUP
+Panduan Ekshibisi Kecerdasan Artifisial (KA) pada LKS Dikmen Tingkat Nasional 2026 ini disusun sebagai acuan resmi bagi peserta, guru pendamping, dewan juri, serta seluruh pihak yang terlibat dalam penyelenggaraan kegiatan. Melalui panduan ini diharapkan setiap tahapan kegiatan, mulai dari sosialisasi, pendaftaran, babak seleksi daring, hingga pelaksanaan final, dapat berjalan secara tertib, adil, dan transparan sesuai mekanisme yang telah ditetapkan. Ekshibisi ini tidak semata-mata menekankan kesempurnaan teknis, melainkan mendorong tumbuhnya kreativitas, inovasi, serta pemanfaatan kecerdasan artifisial yang bertanggung jawab (Responsible AI) untuk menyelesaikan permasalahan nyata. Dengan demikian, kegiatan ini diharapkan mampu menumbuhkan ekosistem pembelajaran KA yang sehat di lingkungan pendidikan menengah serta menyiapkan talenta muda yang adaptif terhadap perkembangan teknologi. Hal-hal yang belum diatur atau memerlukan penyesuaian dalam panduan ini akan ditetapkan kemudian oleh panitia melalui pengumuman resmi. Seluruh peserta dan pihak terkait diharapkan senantiasa mengikuti informasi terbaru yang disampaikan melalui kanal resmi penyelenggara. Akhirnya, kami menyampaikan apresiasi dan terima kasih kepada seluruh peserta, guru pendamping, sekolah, mitra, dan semua pihak atas partisipasi dan dukungannya. Semoga penyelenggaraan Ekshibisi Kecerdasan Artifisial pada LKS Dikmen Tingkat Nasional 2026 dapat berjalan dengan lancar dan memberikan manfaat yang luas bagi kemajuan pendidikan vokasi di Indonesia.
+9
+
+LAMPIRAN
+STUDI KASUS (CASE STUDY)
+Ekshibisi Kecerdasan Artifisial (KA/AI) -- LKS Dikmen Tingkat Nasional 2026
+Setiap tim peserta memilih SATU dari dua studi kasus berikut sebagai dasar pengembangan aplikasi berbasis kecerdasan artifisial. Setiap studi kasus menggambarkan permasalahan dunia nyata; tim tidak perlu menyelesaikan keseluruhan masalah, melainkan cukup membangun sebuah solusi fungsional yang memberikan dampak nyata dan dapat diuji coba di lingkungan lokal.
+Seluruh solusi wajib menggunakan data terbuka (open data), sintetis, atau publik, serta menerapkan prinsip AI yang bertanggung jawab (Responsible AI).
+STUDI KASUS 1 -- KOMUNITAS: Kesulitan Mengakses Informasi yang Valid
+Latar Belakang Banyak warga kesulitan mengakses bantuan yang sebenarnya tersedia karena informasinya membingungkan, tersebar di banyak tempat, atau sulit diverifikasi kebenarannya. Ketika seseorang sedang menghadapi situasi sulit -- misalnya bencana, kebutuhan layanan kesehatan, perlindungan anak, atau bantuan sosial -- mereka sering tidak tahu harus mulai dari mana, dokumen apa yang diperlukan, atau lembaga mana yang tepat untuk dihubungi. Beredarnya informasi keliru (hoaks) di komunitas juga membuat orang ragu dan kehilangan kesempatan memperoleh bantuan tepat waktu.
+Permasalahan yang Dapat Diangkat 1. Informasi bantuan/layanan publik tersebar dan sulit ditemukan oleh warga yang membutuhkan. 2. Warga kebingungan menentukan langkah, syarat, atau lembaga yang tepat untuk situasi mereka. 3. Sulitnya memverifikasi kebenaran informasi atau klaim yang beredar di komunitas.
+Tujuan Solusi Tim merancang aplikasi berbasis AI yang membantu masyarakat menemukan dukungan yang tepat dengan cepat, memahami langkah yang harus dilakukan selanjutnya, dan merasa lebih percaya diri saat meminta bantuan -- dengan membuat sistem yang kompleks menjadi lebih jelas, aman, dan berpusat pada manusia.
+Contoh Arah Solusi (Tidak Mengikat) 1. Asisten/chatbot AI yang memandu warga menemukan layanan yang sesuai berdasarkan kebutuhan mereka. 2. Alat yang merangkum dan menyederhanakan informasi/prosedur resmi yang panjang menjadi langkah yang mudah dipahami. 3. Alat pemeriksa/verifikasi sederhana untuk membantu warga menilai kredibilitas suatu klaim atau informasi.
+Contoh Sumber Data Terbuka 1. Data layanan publik dan direktori lembaga dari portal data pemerintah (mis. data.go.id) atau situs resmi instansi. 2. FAQ dan prosedur layanan yang dipublikasikan secara terbuka oleh lembaga terkait. 3. Data sintetis yang dibuat sendiri untuk mensimulasikan pertanyaan dan kebutuhan warga.
+Organisasi Inspirasi Palang Merah Indonesia (PMI), Komnas HAM, Komisi Perlindungan Anak Indonesia (KPAI).
+10
+
+STUDI KASUS 2 -- LINGKUNGAN: Mendukung Aksi Iklim Lokal
+Latar Belakang Generasi muda sangat peduli terhadap lingkungan, tetapi banyak solusi iklim terasa jauh dan abstrak. Masyarakat membutuhkan alat yang membantu mereka melihat bagaimana pilihan sehari-hari memengaruhi lingkungan, serta tindakan apa yang benar-benar memberi dampak nyata. Tanpa data dan umpan balik yang konkret, niat baik sering berhenti pada kesadaran tanpa berlanjut menjadi aksi yang terukur.
+Permasalahan yang Dapat Diangkat 1. Sulitnya melacak dan memilah sampah secara tepat di tingkat rumah tangga atau sekolah. 2. Kurangnya kesadaran terhadap konsumsi sumber daya (air, listrik, plastik) dan cara menguranginya. 3. Minimnya alat yang membuat aksi lingkungan menjadi praktis, terukur, dan menarik di tingkat lokal.
+Tujuan Solusi Tim merancang aplikasi berbasis AI yang membantu individu, sekolah, atau masyarakat luas memahami dampak lingkungan dari aktivitas mereka dan mengambil tindakan yang berarti -- sehingga aksi lingkungan menjadi praktis, terukur, dan dapat dilakukan sehari-hari.
+Contoh Arah Solusi (Tidak Mengikat) 1. Aplikasi klasifikasi jenis sampah (mis. dari gambar) untuk membantu pemilahan dan daur ulang. 2. Alat pelacak jejak karbon/konsumsi sumber daya sederhana dengan saran tindakan personal. 3. Dasbor atau alat yang memvisualkan dampak lingkungan lokal dan mendorong aksi kolektif (mis. di sekolah).
+Contoh Sumber Data Terbuka 1. Dataset gambar sampah terbuka (mis. TrashNet atau dataset serupa) untuk model klasifikasi. 2. Data lingkungan publik: kualitas udara, konsumsi energi, atau faktor emisi yang dipublikasikan secara terbuka. 3. Data sintetis konsumsi rumah tangga/sekolah yang dibuat untuk simulasi.
+Organisasi Inspirasi WWF Indonesia, Yayasan Konservasi Alam Nusantara (YKAN).
+Ketentuan Umum Pengerjaan Studi Kasus
+Yang Wajib Ditunjukkan Setiap Solusi 12. Definisi masalah yang jelas dan relevan dengan studi kasus yang dipilih. 13. Cara AI digunakan untuk menyelesaikan masalah (alur input  proses  output). 14. Prototipe/aplikasi fungsional yang dapat diuji coba -- bukan sekadar konsep. 15. Penerapan Responsible AI: minimal satu risiko yang teridentifikasi (mis. bias, misinformasi, penyalahgunaan) beserta strategi mitigasinya, serta penjelasan di mana penilaian manusia tetap berperan dalam sistem. 16. Disclosure seluruh tools, model, dan sumber data yang digunakan.
+Batasan Data Gunakan hanya data yang aman dan layak: dataset publik, data sintetis, atau input uji coba. Hindari penggunaan data pribadi atau sensitif. Seluruh sumber data wajib dicantumkan dalam dokumentasi.
+Tools yang Diperbolehkan
+11
+
+Tim dapat menggunakan model open-source, tools AI komersial, API, serta platform no-code/low-code. Tools gratis (free-tier) sudah memadai. Penilaian berfokus pada ide, penalaran, dan dampak -- bukan pada mahal atau canggihnya perangkat yang digunakan. Catatan untuk Peserta Peserta tidak perlu menjadi ahli dan tidak perlu menyelesaikan keseluruhan masalah. Cukup bangun sebuah ide fungsional yang dapat memberikan dampak nyata. Fokuslah pada kejelasan masalah, ketepatan pemanfaatan AI, dan manfaat praktis bagi kehidupan sehari-hari.
+12
+
+13
+
+

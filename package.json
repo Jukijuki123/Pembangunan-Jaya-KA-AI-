@@ -1,0 +1,49 @@
+{
+  "name": "sigap-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SIGAP AI — Sistem Cerdas Asesmen Kerentanan Pengungsi untuk Relawan PMI (LKS Nasional AI 2026, Studi Kasus 1 - Komunitas)",
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "postinstall": "prisma generate",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:deploy": "prisma migrate deploy",
+    "prisma:studio": "prisma studio",
+    "db:seed": "tsx prisma/seed.ts"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@google/genai": "^1.9.0",
+    "@prisma/client": "^6.10.1",
+    "bcryptjs": "^3.0.2",
+    "next": "15.3.9",
+    "next-auth": "5.0.0-beta.29",
+    "qrcode": "^1.5.4",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "recharts": "^2.15.3",
+    "swr": "^2.3.3",
+    "zod": "^3.25.67"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20.19.0",
+    "@types/qrcode": "^1.5.5",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.29.0",
+    "eslint-config-next": "15.3.9",
+    "postcss": "^8.5.6",
+    "prisma": "^6.10.1",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}

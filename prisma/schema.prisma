@@ -1,0 +1,113 @@
+// SIGAP AI — Prisma schema
+// PostgreSQL (Neon.tech / Supabase, free tier) dengan connection pooling.
+//
+// Migration:
+//   npx prisma migrate dev --name init     (development, buat migrasi + apply)
+//   npx prisma migrate deploy              (production / CI)
+//   npm run db:seed                        (isi user awal + konfigurasi posko)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  // directUrl dipakai prisma migrate (koneksi non-pooled). Opsional; jika tak diisi
+  // Prisma akan memakai DATABASE_URL. Aman untuk Neon/Supabase.
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  RELAWAN
+  ADMIN
+}
+
+enum SumberInput {
+  RELAWAN
+  MANDIRI
+}
+
+enum Level {
+  HIJAU
+  KUNING
+  MERAH
+}
+
+enum Instansi {
+  DINAS_KESEHATAN
+  DINAS_SOSIAL
+  BPBD
+}
+
+model User {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  passwordHash String
+  role         Role
+  createdAt    DateTime @default(now())
+  kasus        Kasus[]
+}
+
+model Kasus {
+  id                    String      @id @default(cuid())
+  kodeUnik              String      @unique // untuk QR mode mandiri
+  sumberInput           SumberInput
+  namaKK                String?
+  usiaKK                Int?
+  anggotaKeluarga       Json? // [{hubungan, usia, kondisiKhusus}]
+  kondisiMedisKritis    Json? // string[]
+  obatTersedia          Boolean?
+  mobilitas             String?
+  asalLokasi            String?
+  agentThought          String? // hasil reasoning LLM, untuk audit
+  skorKerentanan        Int         @default(0) // dihitung rule engine, BUKAN LLM
+  levelPrioritas        Level       @default(HIJAU)
+  instansiRujukan       Instansi?
+  statusVerifikasiMedis Boolean     @default(false) // wajib true untuk kasus MERAH final
+  status                String      @default("pending") // pending | terverifikasi
+  geoLat                Float?
+  geoLng                Float?
+  isSpam                Boolean     @default(false)
+  fotoUrl               String?
+  createdById           String?
+  createdBy             User?       @relation(fields: [createdById], references: [id])
+  createdAt             DateTime    @default(now())
+  updatedAt             DateTime    @updatedAt
+
+  @@index([levelPrioritas])
+  @@index([status])
+  @@index([isSpam])
+  @@index([instansiRujukan])
+  @@index([createdById])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  aksi      String
+  aktor     String
+  kasusId   String?
+  detail    Json?
+  createdAt DateTime @default(now())
+
+  @@index([kasusId])
+  @@index([createdAt])
+}
+
+model PoskoConfig {
+  id          String @id @default(cuid())
+  kodePosko   String @unique // dipakai di URL /mandiri/[kodePosko]
+  nama        String @default("Posko Pengungsian")
+  lat         Float
+  lng         Float
+  radiusMeter Int    @default(2000) // validasi anti-spam mode mandiri
+}
+
+model LaporanHarian {
+  id             String   @id @default(cuid())
+  tanggal        DateTime @default(now())
+  ringkasanAI    String // draft dari AI
+  ringkasanFinal String? // setelah diedit admin
+  dikirimOleh    String?
+  terkirim       Boolean  @default(false)
+}
