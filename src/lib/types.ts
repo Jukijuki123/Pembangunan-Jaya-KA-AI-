@@ -26,22 +26,22 @@ export const instansiEnum = z.enum([
  */
 export const geminiExtractionSchema = z.object({
   agent_thought: z.string(),
-  nama_kk: z.string().nullable(),
-  usia_kk: z.number().nullable(),
+  nama_kk: z.string().nullable().optional().default(null),
+  usia_kk: z.number().nullable().optional().default(null),
   anggota_keluarga: z
     .array(
       z.object({
         hubungan: z.string(),
-        usia: z.number().nullable(),
-        kondisi_khusus: z.string().nullable(),
+        usia: z.number().nullable().optional().default(null),
+        kondisi_khusus: z.string().nullable().optional().default(null),
       })
     )
     .default([]),
   kondisi_medis_kritis: z.array(z.string()).default([]),
-  obat_tersedia: z.boolean().nullable(),
-  mobilitas: mobilitasEnum.nullable(),
-  asal_lokasi: z.string().nullable(),
-  instansi_rujukan_sementara: instansiEnum,
+  obat_tersedia: z.boolean().nullable().optional().default(null),
+  mobilitas: mobilitasEnum.nullable().optional().default(null),
+  asal_lokasi: z.string().nullable().optional().default(null),
+  instansi_rujukan_sementara: instansiEnum.optional().default("DINAS_SOSIAL"),
 });
 export type GeminiExtraction = z.infer<typeof geminiExtractionSchema>;
 

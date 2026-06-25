@@ -115,7 +115,7 @@ export default function MandiriForm({
         show(res.error, "error");
         return;
       }
-      const qr = await QRCode.toDataURL(res.kodeUnik, { width: 240, margin: 1 });
+      const qr = await QRCode.toDataURL(res.qrPayload || res.kodeUnik, { width: 240, margin: 1 });
       setHasil({
         kode: res.kodeUnik,
         level: res.level,

@@ -17,7 +17,7 @@ const anggotaSchema = z.object({
 
 const konfirmasiSchema = z.object({
   agentThought: z.string().default(""),
-  namaKK: z.string().trim().min(1).nullable(),
+  namaKK: z.string().trim().nullable().transform(v => v === "" ? null : v).default(null),
   usiaKK: z.number().int().min(0).max(130).nullable(),
   anggotaKeluarga: z.array(anggotaSchema).default([]),
   kondisiMedisKritis: z.array(z.string().trim().min(1)).default([]),

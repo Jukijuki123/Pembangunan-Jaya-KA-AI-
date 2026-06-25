@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
+import { QrCode } from "lucide-react";
+import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui";
 
 /** Header dengan navigasi role-aware + tombol logout. */
@@ -21,18 +23,16 @@ export function AppHeader({
           { href: "/admin", label: "Dashboard" },
           { href: "/rujukan", label: "Rujukan" },
           { href: "/intake", label: "Intake" },
+          { href: "/admin/scan", label: "Scan QR", icon: true },
         ]
       : [{ href: "/intake", label: "Intake" }];
 
   return (
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-2 px-4 py-2.5">
-        <div className="flex items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-pmi text-sm font-black text-white">
-            ＋
-          </span>
-          <span className="text-sm font-black text-slate-900">SIGAP AI</span>
-        </div>
+        <Link href="/" className="hover:opacity-80 transition-opacity">
+          <Logo size={28} withWordmark />
+        </Link>
 
         <nav className="flex items-center gap-1">
           {links.map((l) => {
@@ -41,10 +41,11 @@ export function AppHeader({
               <Link
                 key={l.href}
                 href={l.href}
-                className={`rounded-md px-3 py-1.5 text-sm font-medium ${
+                className={`flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium ${
                   active ? "bg-pmi text-white" : "text-slate-600 hover:bg-slate-100"
                 }`}
               >
+                {l.icon && <QrCode className="h-4 w-4" />}
                 {l.label}
               </Link>
             );

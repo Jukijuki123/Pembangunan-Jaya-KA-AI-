@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import defaultTheme from "tailwindcss/defaultTheme";
 
 const config: Config = {
   content: [
@@ -8,6 +9,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-inter)", ...defaultTheme.fontFamily.sans],
+      },
       colors: {
         // Triage levels — used consistently across intake, dashboard, rujukan
         merah: { DEFAULT: "#dc2626", soft: "#fef2f2", border: "#fecaca" },
@@ -20,9 +24,19 @@ const config: Config = {
           "0%, 100%": { backgroundColor: "#fef2f2" },
           "50%": { backgroundColor: "#fecaca" },
         },
+        floaty: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-8px)" },
+        },
+        fadeUp: {
+          "0%": { opacity: "0", transform: "translateY(12px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         blinkRed: "blinkRed 1s ease-in-out infinite",
+        floaty: "floaty 6s ease-in-out infinite",
+        fadeUp: "fadeUp 0.6s ease-out both",
       },
     },
   },

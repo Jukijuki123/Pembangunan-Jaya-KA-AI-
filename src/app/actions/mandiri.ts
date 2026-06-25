@@ -38,7 +38,7 @@ export type MandiriInput = z.infer<typeof mandiriSchema>;
 export async function submitMandiri(
   input: MandiriInput
 ): Promise<
-  | { ok: true; kodeUnik: string; level: string; skor: number; isSpam: boolean }
+  | { ok: true; kodeUnik: string; level: string; skor: number; isSpam: boolean; qrPayload: string }
   | { ok: false; error: string }
 > {
   try {
@@ -121,10 +121,14 @@ export async function submitMandiri(
       detail: { isSpam, level: skor.level, skor: skor.skor },
     });
 
+    const { generateQrPayload } = await import("@/lib/qr");
+    const qrPayload = generateQrPayload(kasus.id);
+
     if (!isSpam) revalidatePath("/admin");
     return {
       ok: true,
       kodeUnik: kasus.kodeUnik,
+      qrPayload,
       level: skor.level,
       skor: skor.skor,
       isSpam,

@@ -132,20 +132,11 @@ export default function IntakeClient() {
 
   async function simpan() {
     if (!profil) return;
-    // Validasi minimal: nama & usia KK wajib dikonfirmasi (tidak boleh null).
-    if (!profil.namaKK || profil.namaKK.trim() === "") {
-      show("Nama kepala keluarga wajib diisi", "error");
-      return;
-    }
-    if (profil.usiaKK === null) {
-      show("Usia kepala keluarga wajib diisi", "error");
-      return;
-    }
     setSaving(true);
     try {
       const payload: KonfirmasiInput = {
         agentThought: profil.agentThought,
-        namaKK: profil.namaKK,
+        namaKK: profil.namaKK?.trim() || null,
         usiaKK: profil.usiaKK,
         anggotaKeluarga: profil.anggotaKeluarga,
         kondisiMedisKritis: profil.kondisiMedisKritis,

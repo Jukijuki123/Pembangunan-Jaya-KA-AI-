@@ -4,7 +4,8 @@
       "Bash(python -c \"import pypdf; print\\('pypdf ok'\\)\")",
       "Bash(python -c \"import fitz; print\\('fitz ok'\\)\")",
       "Bash(python -c \"import pdfplumber; print\\('pdfplumber ok'\\)\")",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Bash(xargs grep -l \"sumberInput\\\\|MANDIRI\\\\|RELAWAN\")"
     ]
   }
 }

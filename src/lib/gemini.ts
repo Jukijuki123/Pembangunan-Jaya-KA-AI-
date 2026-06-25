@@ -11,13 +11,16 @@ import {
  * Klien Gemini — HANYA dipanggil dari server (Route Handler / Server Action).
  * API key tidak pernah dikirim ke client.
  *
- * Model: gemini-2.5-flash (fallback: gemini-2.5-flash-lite).
- * gemini-2.0-flash sudah deprecated/shutdown -> tidak dipakai.
+ * Fallback chain:
+ *   1. gemini-2.5-flash (Google)
+ *   2. gemini-2.5-flash-lite (Google)
+ *   3. qwen/qwen3.6-27b via Groq API (saat Gemini 503 / high demand)
  */
 const ai = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY });
 
 const MODEL_UTAMA = "gemini-2.5-flash";
 const MODEL_FALLBACK = "gemini-2.5-flash-lite";
+const GROQ_MODEL = "qwen/qwen3.6-27b";
 
 /**
  * System instruction: peran AI HANYA reasoning + ekstraksi. AI TIDAK
@@ -45,6 +48,19 @@ function buildSystemInstruction(): string {
     "",
     "PETAKAN istilah awam/dialek ke istilah medis baku berikut saat mengekstrak kondisi_medis_kritis:",
     sinonimUntukPrompt(),
+    "",
+    "SKEMA JSON yang WAJIB dikembalikan:",
+    JSON.stringify({
+      agent_thought: "string",
+      nama_kk: "string|null",
+      usia_kk: "number|null",
+      anggota_keluarga: [{ hubungan: "string", usia: "number|null", kondisi_khusus: "string|null" }],
+      kondisi_medis_kritis: ["string"],
+      obat_tersedia: "boolean|null",
+      mobilitas: "mandiri|bantuan|tidak_bisa|null",
+      asal_lokasi: "string|null",
+      instansi_rujukan_sementara: "DINAS_KESEHATAN|DINAS_SOSIAL|BPBD",
+    }),
   ].join("\n");
 }
 
@@ -86,7 +102,7 @@ const responseSchema = {
   required: ["agent_thought", "instansi_rujukan_sementara"],
 };
 
-async function callModel(model: string, teks: string): Promise<string> {
+async function callGemini(model: string, teks: string): Promise<string> {
   const res = await ai.models.generateContent({
     model,
     contents: `TEKS RELAWAN:\n"""${teks}"""`,
@@ -103,20 +119,80 @@ async function callModel(model: string, teks: string): Promise<string> {
 }
 
 /**
+ * Strip <think>...</think> tags dari respons model yang memiliki
+ * fitur "thinking" bawaan (e.g. Qwen via Groq).
+ * Tag dan isinya dihapus di server-side sehingga client tidak pernah melihatnya.
+ */
+function stripThinkTags(text: string): string {
+  return text.replace(/<think>[\s\S]*?<\/think>/gi, "").trim();
+}
+
+/**
+ * Fallback ke Groq API (qwen/qwen3.6-27b) saat Gemini tidak tersedia.
+ * Response berupa OpenAI-compatible chat completion.
+ */
+async function callGroq(teks: string): Promise<string> {
+  const apiKey = env.GROQ_API_KEY;
+  if (!apiKey) throw new Error("GROQ_API_KEY tidak dikonfigurasi");
+
+  const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model: GROQ_MODEL,
+      messages: [
+        { role: "system", content: buildSystemInstruction() },
+        { role: "user", content: `TEKS RELAWAN:\n"""${teks}"""` },
+      ],
+      temperature: 0.1,
+      max_completion_tokens: 4096,
+      top_p: 0.95,
+      stream: false,
+      reasoning_effort: "default",
+    }),
+  });
+
+  if (!res.ok) {
+    const errBody = await res.text().catch(() => "unknown error");
+    throw new Error(`Groq API error ${res.status}: ${errBody}`);
+  }
+
+  const json = await res.json();
+  const content = json.choices?.[0]?.message?.content;
+  if (!content) throw new Error("Respons Groq kosong");
+
+  // Strip <think>...</think> tags dari respons Qwen (server-side only)
+  const cleaned = stripThinkTags(content);
+  return cleaned;
+}
+
+/**
  * Ekstrak teks bebas -> ProfilKerentanan tervalidasi.
- * Mencoba model utama, lalu fallback. Memvalidasi dengan Zod (jaminan bentuk).
+ * Fallback chain: Gemini utama -> Gemini lite -> Groq (Qwen).
+ * Memvalidasi dengan Zod (jaminan bentuk).
  */
 export async function ekstrakProfil(teks: string): Promise<ProfilKerentanan> {
   let raw: string;
   try {
-    raw = await callModel(MODEL_UTAMA, teks);
+    raw = await callGemini(MODEL_UTAMA, teks);
   } catch (err) {
-    // Fallback ke model lebih ringan bila utama gagal (quota/limit).
     console.warn(
       `[gemini] model utama gagal, fallback ke ${MODEL_FALLBACK}:`,
       (err as Error).message
     );
-    raw = await callModel(MODEL_FALLBACK, teks);
+    try {
+      raw = await callGemini(MODEL_FALLBACK, teks);
+    } catch (err2) {
+      // Kedua model Gemini gagal -> fallback ke Groq
+      console.warn(
+        `[gemini] fallback juga gagal, beralih ke Groq (${GROQ_MODEL}):`,
+        (err2 as Error).message
+      );
+      raw = await callGroq(teks);
+    }
   }
 
   let json: unknown;
@@ -170,7 +246,8 @@ export async function buatRingkasanHarian(
     agregat
   )}`;
 
-  const run = async (model: string) => {
+  // Gemini attempt
+  const runGemini = async (model: string) => {
     const res = await ai.models.generateContent({
       model,
       contents: prompt,
@@ -180,13 +257,55 @@ export async function buatRingkasanHarian(
     return res.text.trim();
   };
 
+  // Groq attempt
+  const runGroq = async () => {
+    const apiKey = env.GROQ_API_KEY;
+    if (!apiKey) throw new Error("GROQ_API_KEY tidak dikonfigurasi");
+
+    const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: GROQ_MODEL,
+        messages: [
+          { role: "system", content: sys },
+          { role: "user", content: prompt },
+        ],
+        temperature: 0.4,
+        max_completion_tokens: 2048,
+        stream: false,
+      }),
+    });
+
+    if (!res.ok) {
+      const errBody = await res.text().catch(() => "unknown");
+      throw new Error(`Groq API error ${res.status}: ${errBody}`);
+    }
+
+    const json = await res.json();
+    const content = json.choices?.[0]?.message?.content;
+    if (!content) throw new Error("Respons Groq kosong");
+    return stripThinkTags(content);
+  };
+
   try {
-    return await run(MODEL_UTAMA);
+    return await runGemini(MODEL_UTAMA);
   } catch (err) {
     console.warn(
       `[gemini] laporan: fallback ke ${MODEL_FALLBACK}:`,
       (err as Error).message
     );
-    return await run(MODEL_FALLBACK);
+    try {
+      return await runGemini(MODEL_FALLBACK);
+    } catch (err2) {
+      console.warn(
+        `[gemini] laporan: fallback Groq (${GROQ_MODEL}):`,
+        (err2 as Error).message
+      );
+      return await runGroq();
+    }
   }
 }

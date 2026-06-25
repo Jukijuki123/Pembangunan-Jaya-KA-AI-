@@ -39,3 +39,6 @@ yarn-error.log*
 /data/
 __pycache__/
 *.pyc
+
+
+*.py

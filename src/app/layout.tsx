@@ -1,11 +1,15 @@
 import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { ToastProvider } from "@/components/Toast";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: "SIGAP AI — Asesmen Kerentanan Pengungsi PMI",
   description:
     "Sistem cerdas asesmen kerentanan pengungsi untuk relawan PMI. AI membantu, manusia memutuskan.",
+  icons: { icon: "/logo.png", apple: "/logo.png" },
 };
 
 export const viewport: Viewport = {
@@ -21,8 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id">
-      <body className="min-h-screen antialiased">
+    <html lang="id" className={inter.variable}>
+      <body className="min-h-screen font-sans antialiased">
         <ToastProvider>{children}</ToastProvider>
       </body>
     </html>

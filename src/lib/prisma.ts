@@ -1,6 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import "@/env"; // validasi env saat modul prisma pertama kali diimpor
+import dns from "dns";
 
+// Fix Node 18+ IPv6 resolution timeout issues when connecting to Supabase Pooler
+dns.setDefaultResultOrder("ipv4first");
 /**
  * Prisma client singleton.
  * Di serverless (Vercel) / dev hot-reload, hindari membuat banyak koneksi

@@ -12,6 +12,7 @@ const envSchema = z.object({
   DATABASE_URL: z.string().min(1, "DATABASE_URL wajib diisi"),
   DIRECT_URL: z.string().min(1).optional(),
   GEMINI_API_KEY: z.string().min(1, "GEMINI_API_KEY wajib diisi"),
+  GROQ_API_KEY: z.string().min(1).optional(),
   AUTH_SECRET: z.string().min(1, "AUTH_SECRET wajib diisi"),
   AUTH_URL: z.string().url().optional(),
   NODE_ENV: z
