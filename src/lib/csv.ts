@@ -1,10 +1,15 @@
 import type { Kasus } from "@prisma/client";
 import { INSTANSI_LABEL } from "@/lib/utils";
 
-/** Escape satu sel CSV (RFC 4180). */
+/** 
+ * Escape satu sel CSV (RFC 4180). 
+ * Menangani quote, koma, newline agar tidak merusak kolom Excel.
+ */
 function cell(value: unknown): string {
-  const s = value === null || value === undefined ? "" : String(value);
-  if (/[",\n]/.test(s)) {
+  if (value === null || value === undefined) return "";
+  const s = String(value);
+  // Jika ada kutip ganda, koma, baris baru, atau spasi di awal/akhir, bungkus dengan kutip ganda.
+  if (/[",\r\n]/.test(s) || /^\s|\s$/.test(s)) {
     return `"${s.replace(/"/g, '""')}"`;
   }
   return s;
@@ -55,6 +60,6 @@ export function kasusToCsv(rows: Kasus[]): string {
       .join(",");
   });
 
-  // BOM agar Excel membaca UTF-8 dengan benar.
-  return "﻿" + [header.map(cell).join(","), ...lines].join("\r\n");
+  // \uFEFF adalah Byte Order Mark (BOM) agar Microsoft Excel membaca UTF-8 dengan benar tanpa merusak karakter spesial (mis. huruf beraksen/emoji).
+  return "\uFEFF" + [header.map(cell).join(","), ...lines].join("\r\n");
 }

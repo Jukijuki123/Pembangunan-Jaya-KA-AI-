@@ -51,7 +51,7 @@ export async function POST(req: Request) {
     const { teks, mode } = parsed.data;
 
     let finalProfil: Partial<ProfilKerentanan> = {};
-    let finalProvenance: ProvenanceMap | null = null;
+    let finalProvenance: ProvenanceMap | undefined = undefined;
     let uncertainFields: string[] = [];
 
     if (mode === "llm" || mode === "auto") {
