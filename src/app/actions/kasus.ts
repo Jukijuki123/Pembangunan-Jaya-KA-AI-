@@ -25,6 +25,7 @@ const konfirmasiSchema = z.object({
   mobilitas: z.enum(["mandiri", "bantuan", "tidak_bisa"]).nullable(),
   asalLokasi: z.string().trim().nullable(),
   instansiRujukan: z.enum(["DINAS_KESEHATAN", "DINAS_SOSIAL", "BPBD"]),
+  provenance: z.record(z.any()).optional(),
 });
 
 export type KonfirmasiInput = z.infer<typeof konfirmasiSchema>;
@@ -81,6 +82,7 @@ export async function simpanKasusTerkonfirmasi(
         instansiRujukan: d.instansiRujukan,
         statusVerifikasiMedis: false,
         status: "terverifikasi", // sudah dikonfirmasi relawan (Lapis 1)
+        provenance: d.provenance || undefined,
         createdById: session.user.id,
       },
     });
@@ -221,6 +223,7 @@ export async function updateKasus(
         instansiRujukan: merged.instansiRujukan,
         skorKerentanan: skor.skor,
         levelPrioritas: skor.level,
+        provenance: d.provenance !== undefined ? d.provenance : undefined,
         ...(typeof d.isSpam === "boolean" ? { isSpam: d.isSpam } : {}),
         // Skor berubah level -> reset verifikasi medis bila tak lagi MERAH.
         ...(skor.level !== "MERAH" ? { statusVerifikasiMedis: false } : {}),

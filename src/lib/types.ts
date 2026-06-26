@@ -45,6 +45,15 @@ export const geminiExtractionSchema = z.object({
 });
 export type GeminiExtraction = z.infer<typeof geminiExtractionSchema>;
 
+export interface FieldMetadata {
+  value: any;
+  source: "rule" | "neural" | "human" | "default";
+  sourceDetail: string;
+  confidence: number;
+}
+
+export type ProvenanceMap = Record<string, FieldMetadata>;
+
 /**
  * Profil ternormalisasi (camelCase) yang dipakai rule engine & UI.
  */
@@ -58,6 +67,7 @@ export interface ProfilKerentanan {
   mobilitas: z.infer<typeof mobilitasEnum> | null;
   asalLokasi: string | null;
   instansiRujukan: z.infer<typeof instansiEnum>;
+  provenance?: ProvenanceMap; // PRANA metadata
 }
 
 // type alias (bukan interface) agar kompatibel sebagai Prisma JSON value.
@@ -75,7 +85,7 @@ export type HasilSkor = {
 
 /** Ubah output Gemini (snake_case) menjadi profil internal (camelCase). */
 export function toProfil(e: GeminiExtraction): ProfilKerentanan {
-  return {
+  const p: ProfilKerentanan = {
     agentThought: e.agent_thought,
     namaKK: e.nama_kk,
     usiaKK: e.usia_kk,
@@ -90,4 +100,18 @@ export function toProfil(e: GeminiExtraction): ProfilKerentanan {
     asalLokasi: e.asal_lokasi,
     instansiRujukan: e.instansi_rujukan_sementara,
   };
+
+  // Inisialisasi provenance untuk ekstraksi LLM (neural)
+  p.provenance = {
+    namaKK: { value: p.namaKK, source: "neural", sourceDetail: "gemini-extraction", confidence: p.namaKK ? 0.85 : 1.0 },
+    usiaKK: { value: p.usiaKK, source: "neural", sourceDetail: "gemini-extraction", confidence: p.usiaKK !== null ? 0.85 : 1.0 },
+    anggotaKeluarga: { value: p.anggotaKeluarga, source: "neural", sourceDetail: "gemini-extraction", confidence: p.anggotaKeluarga.length > 0 ? 0.85 : 1.0 },
+    kondisiMedisKritis: { value: p.kondisiMedisKritis, source: "neural", sourceDetail: "gemini-extraction", confidence: p.kondisiMedisKritis.length > 0 ? 0.85 : 1.0 },
+    obatTersedia: { value: p.obatTersedia, source: "neural", sourceDetail: "gemini-extraction", confidence: p.obatTersedia !== null ? 0.85 : 1.0 },
+    mobilitas: { value: p.mobilitas, source: "neural", sourceDetail: "gemini-extraction", confidence: p.mobilitas ? 0.85 : 1.0 },
+    asalLokasi: { value: p.asalLokasi, source: "neural", sourceDetail: "gemini-extraction", confidence: p.asalLokasi ? 0.85 : 1.0 },
+    instansiRujukan: { value: p.instansiRujukan, source: "neural", sourceDetail: "gemini-extraction", confidence: 0.8 },
+  };
+
+  return p;
 }

@@ -80,13 +80,16 @@ export default function AdminClient({ users }: { users: UserRow[] }) {
 
       {/* Alarm MERAH */}
       {alarm > 0 && (
-        <div className="flex items-center justify-between rounded-xl border border-merah-border bg-merah-soft px-4 py-3 animate-blinkRed">
+        <div className="flex items-center justify-between rounded-xl border border-merah-border bg-merah-soft px-4 py-3 animate-blinkRed relative z-10">
           <p className="text-sm font-bold text-merah">
             🚨 {alarm} kasus MERAH menunggu verifikasi medis
           </p>
           <button
-            onClick={() => setFilter("MERAH")}
-            className="rounded-lg bg-merah px-3 py-1.5 text-xs font-semibold text-white"
+            onClick={() => {
+              setFilter("MERAH");
+              document.getElementById("tabel-kasus")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="rounded-lg bg-merah px-3 py-1.5 text-xs font-semibold text-white cursor-pointer relative z-20 shrink-0 ml-3"
           >
             Lihat
           </button>
@@ -97,7 +100,7 @@ export default function AdminClient({ users }: { users: UserRow[] }) {
       {agregat && <Charts a={agregat} />}
 
       {/* Filter + tabel */}
-      <div>
+      <div id="tabel-kasus" className="scroll-mt-24 relative z-0">
         <div className="mb-2 flex items-center gap-2">
           <h2 className="text-base font-bold text-slate-900">Daftar Kasus</h2>
           <div className="ml-auto flex gap-1">

@@ -61,6 +61,7 @@ model Kasus {
   mobilitas             String?
   asalLokasi            String?
   agentThought          String? // hasil reasoning LLM, untuk audit
+  provenance            Json?   // metadata PRANA (source, confidence per field)
   skorKerentanan        Int         @default(0) // dihitung rule engine, BUKAN LLM
   levelPrioritas        Level       @default(HIJAU)
   instansiRujukan       Instansi?

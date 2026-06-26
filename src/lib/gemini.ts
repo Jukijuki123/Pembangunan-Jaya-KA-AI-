@@ -170,6 +170,18 @@ async function callGroq(teks: string): Promise<string> {
 }
 
 /**
+ * Helper: Tambahkan Timeout agar LLM tidak hanging hingga 2 menit
+ */
+function withTimeout<T>(promise: Promise<T>, ms = 15000): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) =>
+      setTimeout(() => reject(new Error(`Timeout setelah ${ms}ms`)), ms)
+    ),
+  ]);
+}
+
+/**
  * Ekstrak teks bebas -> ProfilKerentanan tervalidasi.
  * Fallback chain: Gemini utama -> Gemini lite -> Groq (Qwen).
  * Memvalidasi dengan Zod (jaminan bentuk).
@@ -177,29 +189,35 @@ async function callGroq(teks: string): Promise<string> {
 export async function ekstrakProfil(teks: string): Promise<ProfilKerentanan> {
   let raw: string;
   try {
-    raw = await callGemini(MODEL_UTAMA, teks);
+    raw = await withTimeout(callGemini(MODEL_UTAMA, teks), 15000);
   } catch (err) {
     console.warn(
       `[gemini] model utama gagal, fallback ke ${MODEL_FALLBACK}:`,
       (err as Error).message
     );
     try {
-      raw = await callGemini(MODEL_FALLBACK, teks);
+      raw = await withTimeout(callGemini(MODEL_FALLBACK, teks), 15000);
     } catch (err2) {
       // Kedua model Gemini gagal -> fallback ke Groq
       console.warn(
         `[gemini] fallback juga gagal, beralih ke Groq (${GROQ_MODEL}):`,
         (err2 as Error).message
       );
-      raw = await callGroq(teks);
+      raw = await withTimeout(callGroq(teks), 15000);
     }
   }
 
   let json: unknown;
   try {
-    json = JSON.parse(raw);
-  } catch {
-    throw new Error("Output AI bukan JSON valid");
+    // Cari blok yang dimulai dengan { dan diakhiri dengan }
+    const match = raw.match(/\{[\s\S]*\}/);
+    if (!match) {
+      throw new Error("Tidak menemukan struktur JSON dalam respons");
+    }
+    json = JSON.parse(match[0]);
+  } catch (parseError) {
+    console.error("RAW AI Output yang gagal diparse:", raw);
+    throw new Error("Output AI bukan JSON valid. Silakan coba lagi.");
   }
 
   const parsed = geminiExtractionSchema.safeParse(json);
