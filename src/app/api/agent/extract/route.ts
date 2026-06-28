@@ -74,6 +74,11 @@ export async function POST(req: Request) {
     if (!finalProfil.kondisiMedisKritis) finalProfil.kondisiMedisKritis = [];
     if (!finalProfil.anggotaKeluarga) finalProfil.anggotaKeluarga = [];
     
+    // Pastikan instansiRujukan tidak undefined (karena GLiNER tidak mengekstraknya)
+    if (!finalProfil.instansiRujukan) {
+      finalProfil.instansiRujukan = finalProfil.kondisiMedisKritis.length > 0 ? "DINAS_KESEHATAN" : "DINAS_SOSIAL";
+    }
+    
     const skor = hitungSkor(finalProfil as ProfilKerentanan);
 
     return NextResponse.json({
