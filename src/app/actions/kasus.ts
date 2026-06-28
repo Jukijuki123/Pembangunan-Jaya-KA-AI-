@@ -18,12 +18,12 @@ const anggotaSchema = z.object({
 const konfirmasiSchema = z.object({
   agentThought: z.string().default(""),
   namaKK: z.string().trim().nullable().transform(v => v === "" ? null : v).default(null),
-  usiaKK: z.number().int().min(0).max(130).nullable(),
+  usiaKK: z.number().int().min(0).max(130).nullable().optional().default(null),
   anggotaKeluarga: z.array(anggotaSchema).default([]),
   kondisiMedisKritis: z.array(z.string().trim().min(1)).default([]),
-  obatTersedia: z.boolean().nullable(),
-  mobilitas: z.enum(["mandiri", "bantuan", "tidak_bisa"]).nullable(),
-  asalLokasi: z.string().trim().nullable(),
+  obatTersedia: z.boolean().nullable().optional().default(null),
+  mobilitas: z.enum(["mandiri", "bantuan", "tidak_bisa"]).nullable().optional().default(null),
+  asalLokasi: z.string().trim().nullable().optional().default(null),
   instansiRujukan: z.enum(["DINAS_KESEHATAN", "DINAS_SOSIAL", "BPBD"]),
   provenance: z.record(z.any()).optional(),
 });
