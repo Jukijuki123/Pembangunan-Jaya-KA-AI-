@@ -31,10 +31,9 @@ export default function MandiriForm({
   const [namaKK, setNamaKK] = useState("");
   const [usiaKK, setUsiaKK] = useState("");
   const [jumlahAnggota, setJumlahAnggota] = useState("0");
-  const [punyaBalita, setPunyaBalita] = useState(false);
-  const [punyaIbuHamil, setPunyaIbuHamil] = useState(false);
-  const [punyaLansiaLain, setPunyaLansiaLain] = useState(false);
+  const [anggotaKeluarga, setAnggotaKeluarga] = useState<{ hubungan: string; usia: number | null; kondisiKhusus: string | null }[]>([]);
   const [kondisi, setKondisi] = useState<string[]>([]);
+  const [kondisiInput, setKondisiInput] = useState("");
   const [obat, setObat] = useState<"" | "ya" | "tidak">("");
   const [mobilitas, setMobilitas] = useState("");
   const [asalLokasi, setAsalLokasi] = useState("");
@@ -99,9 +98,7 @@ export default function MandiriForm({
         namaKK: namaKK.trim() || null,
         usiaKK: usiaKK === "" ? null : Number(usiaKK),
         jumlahAnggota: Number(jumlahAnggota) || 0,
-        punyaBalita,
-        punyaIbuHamil,
-        punyaLansiaLain,
+        anggotaKeluarga,
         kondisiMedisKritis: kondisi,
         obatTersedia: obat === "" ? null : obat === "ya",
         mobilitas: (mobilitas || null) as MandiriInput["mobilitas"],
@@ -200,12 +197,59 @@ export default function MandiriForm({
         </div>
 
         <p className="mb-1 mt-2 text-sm font-medium text-slate-600">
-          Ada anggota berikut?
+          Rincian Anggota Keluarga (Opsional)
         </p>
         <div className="flex flex-col gap-2">
-          <Check checked={punyaBalita} onChange={setPunyaBalita} label="Bayi/balita di bawah 1 tahun" />
-          <Check checked={punyaIbuHamil} onChange={setPunyaIbuHamil} label="Ibu hamil" />
-          <Check checked={punyaLansiaLain} onChange={setPunyaLansiaLain} label="Lansia (≥60 th) lain" />
+          {anggotaKeluarga.map((a, i) => (
+            <div key={i} className="flex flex-col gap-2 p-2 bg-slate-50 rounded-xl border border-slate-200">
+              <div className="flex gap-2">
+                <input
+                  value={a.hubungan}
+                  onChange={(e) => {
+                    const arr = [...anggotaKeluarga];
+                    arr[i] = { ...a, hubungan: e.target.value };
+                    setAnggotaKeluarga(arr);
+                  }}
+                  placeholder="Hubungan (anak/istri)"
+                  className="flex-1 rounded-lg border border-slate-200 px-2 py-1.5 text-sm focus:border-pmi outline-none"
+                />
+                <input
+                  type="number"
+                  value={a.usia ?? ""}
+                  onChange={(e) => {
+                    const val = e.target.value ? Number(e.target.value) : null;
+                    const arr = [...anggotaKeluarga];
+                    arr[i] = { ...a, usia: val };
+                    setAnggotaKeluarga(arr);
+                  }}
+                  placeholder="Usia"
+                  className="w-16 rounded-lg border border-slate-200 px-2 py-1.5 text-sm focus:border-pmi outline-none"
+                />
+                <button
+                  onClick={() => setAnggotaKeluarga(anggotaKeluarga.filter((_, j) => j !== i))}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-red-100 text-red-600 hover:bg-red-200"
+                >
+                  ✕
+                </button>
+              </div>
+              <input
+                value={a.kondisiKhusus ?? ""}
+                onChange={(e) => {
+                  const arr = [...anggotaKeluarga];
+                  arr[i] = { ...a, kondisiKhusus: e.target.value };
+                  setAnggotaKeluarga(arr);
+                }}
+                placeholder="Kondisi khusus (hamil/bayi/dll)"
+                className="w-full rounded-lg border border-slate-200 px-2 py-1.5 text-sm focus:border-pmi outline-none"
+              />
+            </div>
+          ))}
+          <button
+            onClick={() => setAnggotaKeluarga([...anggotaKeluarga, { hubungan: "", usia: null, kondisiKhusus: null }])}
+            className="rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50 text-left"
+          >
+            + Tambah Rincian Anggota
+          </button>
         </div>
       </Card>
 
@@ -213,21 +257,49 @@ export default function MandiriForm({
         <p className="mb-2 text-sm font-medium text-slate-600">
           Kondisi medis dalam keluarga (boleh lebih dari satu)
         </p>
-        <div className="flex flex-wrap gap-2">
-          {KONDISI_PILIHAN.map((k) => (
+        <div className="flex flex-wrap gap-2 mb-3">
+          {kondisi.map((k, i) => (
+            <span
+              key={i}
+              className="inline-flex items-center gap-1 rounded-full border border-merah bg-merah px-3 py-1.5 text-sm text-white"
+            >
+              {k}
+              <button
+                onClick={() => setKondisi(kondisi.filter((_, j) => j !== i))}
+                className="ml-1 font-bold text-white hover:text-slate-200"
+              >
+                ✕
+              </button>
+            </span>
+          ))}
+        </div>
+        <p className="mb-2 text-sm text-slate-500">Pilih dari saran, atau ketik sendiri di bawah:</p>
+        <div className="flex flex-wrap gap-2 mb-3">
+          {KONDISI_PILIHAN.filter((k) => !kondisi.includes(k)).map((k) => (
             <button
               key={k}
               onClick={() => toggleKondisi(k)}
-              className={`rounded-full border px-3 py-1.5 text-sm ${
-                kondisi.includes(k)
-                  ? "border-merah bg-merah text-white"
-                  : "border-slate-300 bg-white text-slate-600"
-              }`}
+              className="rounded-full border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-600"
             >
-              {k}
+              + {k}
             </button>
           ))}
         </div>
+        <input
+          value={kondisiInput}
+          onChange={(e) => setKondisiInput(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && kondisiInput.trim()) {
+              e.preventDefault();
+              if (!kondisi.includes(kondisiInput.trim())) {
+                setKondisi([...kondisi, kondisiInput.trim()]);
+              }
+              setKondisiInput("");
+            }
+          }}
+          placeholder="Ketik kondisi lain, tekan Enter"
+          className="inp"
+        />
 
         <div className="mt-3 grid grid-cols-2 gap-3">
           <L label="Obat tersedia?">

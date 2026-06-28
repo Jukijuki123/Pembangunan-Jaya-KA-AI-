@@ -61,9 +61,9 @@ export async function POST(req: Request) {
       finalProvenance = createFullProvenance(finalProfil, "neural", "llm-gemini", 0.95);
     } 
     else if (mode === "deberta") {
-      // MODE 2: DeBERTa v3 murni (GLiNER)
+      // MODE 2: GLiNER murni (DeBERTa backbone)
       const glinerResult = await runZeroShotExtraction(teks);
-      finalProfil = { ...glinerResult.profil, agentThought: "DeBERTa v3: Zero-Shot NER dieksekusi dengan sangat cepat via Hugging Face Spaces." };
+      finalProfil = { ...glinerResult.profil, agentThought: "GLiNER: Zero-Shot NER dieksekusi dengan sangat cepat via Hugging Face Spaces." };
       finalProvenance = createFullProvenance(finalProfil, "neural", "gliner-onnx", 0.8, glinerResult.fieldConfidence);
       uncertainFields = Object.keys(glinerResult.fieldConfidence).filter(k => glinerResult.fieldConfidence[k] < 0.7);
     }

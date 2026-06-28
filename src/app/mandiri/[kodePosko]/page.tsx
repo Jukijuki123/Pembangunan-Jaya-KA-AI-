@@ -1,3 +1,4 @@
+import { Logo } from "@/components/Logo";
 import { prisma } from "@/lib/prisma";
 import MandiriForm from "./MandiriForm";
 
@@ -28,8 +29,8 @@ export default async function MandiriPage({
   return (
     <main className="mx-auto min-h-screen max-w-md px-5 py-8">
       <div className="mb-5 text-center">
-        <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-2xl bg-pmi text-xl font-black text-white">
-          ＋
+        <div className="mx-auto mb-3 flex justify-center">
+          <Logo size={42} withWordmark />
         </div>
         <h1 className="text-lg font-black text-slate-900">Lapor Mandiri</h1>
         <p className="text-sm text-slate-500">{posko.nama}</p>

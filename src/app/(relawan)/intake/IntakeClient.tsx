@@ -233,7 +233,7 @@ export default function IntakeClient() {
             <label className={`flex-1 cursor-pointer rounded-lg border p-3 text-sm transition-all ${modelMode === 'deberta' ? 'border-blue-500 bg-blue-50 ring-1 ring-blue-500/20' : 'border-slate-200 bg-white hover:bg-slate-50'}`}>
               <div className="flex items-center gap-2 font-bold text-slate-800">
                 <input type="radio" name="modelMode" value="deberta" checked={modelMode === 'deberta'} onChange={(e) => setModelMode(e.target.value as any)} className="text-blue-500 focus:ring-blue-500" />
-                DeBERTa v3 (Cepat)
+                GLiNER (Cepat)
               </div>
               <p className="mt-1 text-xs text-slate-500 ml-5">Zero-Shot NER super cepat. Direkomendasikan untuk bahasa laporan standar.</p>
             </label>
@@ -567,10 +567,10 @@ function BadgeForMeta({ meta }: { meta: FieldMetadata }) {
     );
   }
   if (meta.source === "neural") {
-    const isDeberta = meta.sourceDetail?.includes("gliner") || meta.sourceDetail?.includes("deberta");
+    const isGliner = meta.sourceDetail?.includes("gliner") || meta.sourceDetail?.includes("deberta");
     return (
-      <span className={`rounded border text-[10px] font-bold px-1.5 py-0.5 ${isDeberta ? "bg-blue-50 border-blue-200 text-blue-700" : "bg-purple-50 border-purple-200 text-purple-700"}`}>
-        {isDeberta ? "AI DeBERTa" : "AI LLM"}
+      <span className={`rounded border text-[10px] font-bold px-1.5 py-0.5 ${isGliner ? "bg-blue-50 border-blue-200 text-blue-700" : "bg-purple-50 border-purple-200 text-purple-700"}`}>
+        {isGliner ? "AI GLiNER" : "AI LLM"}
       </span>
     );
   }

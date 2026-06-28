@@ -21,9 +21,11 @@ const mandiriSchema = z.object({
   namaKK: z.string().trim().min(1).max(120).nullable(),
   usiaKK: z.number().int().min(0).max(130).nullable(),
   jumlahAnggota: z.number().int().min(0).max(30).default(0),
-  punyaBalita: z.boolean().default(false),
-  punyaIbuHamil: z.boolean().default(false),
-  punyaLansiaLain: z.boolean().default(false),
+  anggotaKeluarga: z.array(z.object({
+    hubungan: z.string().trim().min(1),
+    usia: z.number().int().nullable(),
+    kondisiKhusus: z.string().trim().nullable()
+  })).default([]),
   kondisiMedisKritis: z.array(z.string().trim().min(1)).default([]),
   obatTersedia: z.boolean().nullable(),
   mobilitas: z.enum(["mandiri", "bantuan", "tidak_bisa"]).nullable(),
@@ -63,17 +65,17 @@ export async function submitMandiri(
       isSpam = true;
     }
 
-    // Susun anggota keluarga dari jawaban pilihan ganda.
-    const anggota: ProfilKerentanan["anggotaKeluarga"] = [];
-    if (d.punyaBalita) anggota.push({ hubungan: "anak", usia: 0, kondisiKhusus: "balita" });
-    if (d.punyaIbuHamil)
-      anggota.push({ hubungan: "anggota", usia: null, kondisiKhusus: "ibu hamil" });
-    if (d.punyaLansiaLain)
-      anggota.push({ hubungan: "anggota", usia: 65, kondisiKhusus: "lansia" });
-    // Sisanya sebagai anggota umum agar total jiwa benar.
+    // Susun anggota keluarga dari form.
+    const anggota: ProfilKerentanan["anggotaKeluarga"] = d.anggotaKeluarga.map(a => ({
+      ...a,
+      kondisiKhusus: a.kondisiKhusus || null
+    }));
+    
+    // Jika jumlahAnggota manual lebih besar dari anggota yang dirinci, tambahkan sisanya.
     const sisa = Math.max(0, d.jumlahAnggota - anggota.length);
-    for (let i = 0; i < sisa; i++)
+    for (let i = 0; i < sisa; i++) {
       anggota.push({ hubungan: "anggota", usia: null, kondisiKhusus: null });
+    }
 
     const kondisi = d.kondisiMedisKritis.map(normalisasiKondisi);
 
