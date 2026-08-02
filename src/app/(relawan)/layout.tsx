@@ -9,6 +9,7 @@ export default async function RelawanLayout({
 }) {
   const session = await auth();
   if (!session?.user) redirect("/login");
+  // ADMIN boleh membuka intake (lihat semua) — header menyesuaikan role.
 
   return (
     <div className="min-h-screen bg-slate-50">

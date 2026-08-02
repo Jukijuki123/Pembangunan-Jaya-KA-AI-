@@ -47,6 +47,7 @@ model User {
   role         Role
   createdAt    DateTime @default(now())
   kasus        Kasus[]
+  posko        Posko[]
 }
 
 model Kasus {
@@ -111,4 +112,63 @@ model LaporanHarian {
   ringkasanFinal String? // setelah diedit admin
   dikirimOleh    String?
   terkirim       Boolean  @default(false)
+}
+
+// ── Fitur: Peta Kebutuhan Lintas-Posko ──────────────────────
+
+enum KategoriKebutuhan {
+  obat_demam_analgesik
+  obat_kronis
+  kebutuhan_bayi
+  kebutuhan_ibu_hamil
+  air_bersih
+  makanan_pokok
+  selimut_pakaian
+  tenaga_medis
+  lainnya
+}
+
+enum StatusKebutuhan {
+  pending
+  dikonfirmasi
+}
+
+model Posko {
+  id              String            @id @default(cuid())
+  namaPosko       String
+  lat             Float
+  lng             Float
+  areaPublik      String // nama kecamatan/kabupaten (satu-satunya lokasi di layer publik)
+  alamatText      String?
+  adminId         String?
+  admin           User?             @relation(fields: [adminId], references: [id])
+  kebutuhanAgregat KebutuhanAgregat[]
+  createdAt       DateTime          @default(now())
+
+  @@index([areaPublik])
+}
+
+model KebutuhanAgregat {
+  id                  String            @id @default(cuid())
+  poskoId             String
+  posko               Posko             @relation(fields: [poskoId], references: [id], onDelete: Cascade)
+  kategori            KategoriKebutuhan
+  ringkasanLaporan    String? // ringkasan apa adanya dari laporan relawan
+  estimasiJumlah      Int? // nullable sampai dikonfirmasi
+  urgensi             Level // HIJAU / KUNING / MERAH
+  perluKonfirmasiMedis Boolean          @default(true) // SELALU true untuk output AI
+  status              StatusKebutuhan  @default(pending)
+  dikonfirmasiOleh    String?
+  lastUpdated         DateTime         @updatedAt
+
+  @@index([poskoId])
+  @@index([status])
+}
+
+model GeocodeCache {
+  id        String   @id @default(cuid())
+  alamat    String   @unique
+  lat       Float
+  lng       Float
+  createdAt DateTime @default(now())
 }

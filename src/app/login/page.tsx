@@ -1,10 +1,20 @@
 import { Suspense } from "react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import LoginForm from "./LoginForm";
 import { Logo } from "@/components/Logo";
 import { ChevronLeft } from "lucide-react";
+import { auth } from "@/auth";
 
-export default function LoginPage() {
+export const dynamic = "force-dynamic"; // auth() harus jalan per-request
+
+export default async function LoginPage() {
+  // Sudah login? Langsung ke beranda sesuai role (per-request, pasti jalan).
+  const session = await auth();
+  if (session?.user) {
+    redirect(session.user.role === "ADMIN" ? "/admin" : "/intake");
+  }
+
   return (
     <main className="min-h-screen w-full flex items-center justify-center p-4 bg-gradient-to-br from-slate-900 via-slate-950 to-pmi-dark relative overflow-hidden selection:bg-pmi selection:text-white">
       

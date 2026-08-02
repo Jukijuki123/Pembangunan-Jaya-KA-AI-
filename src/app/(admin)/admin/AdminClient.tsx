@@ -78,6 +78,36 @@ export default function AdminClient({ users }: { users: UserRow[] }) {
         {isLoading && <Spinner className="text-pmi" />}
       </div>
 
+      {/* Akses cepat Peta Lintas-Posko */}
+      <div className="grid gap-3 sm:grid-cols-2">
+        <a
+          href="/peta/instansi"
+          className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm transition-all hover:border-pmi/40 hover:shadow-md"
+        >
+          <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-pmi/10 text-pmi">
+            <i className="fa-solid fa-map-location-dot text-lg" aria-hidden="true"></i>
+          </span>
+          <span className="flex-1">
+            <span className="block text-sm font-bold text-slate-900">Peta Kebutuhan Lintas-Posko</span>
+            <span className="block text-xs text-slate-500">Lihat titik posko & urgensi per kebutuhan</span>
+          </span>
+          <i className="fa-solid fa-chevron-right text-slate-300 transition-all group-hover:translate-x-0.5 group-hover:text-pmi" aria-hidden="true"></i>
+        </a>
+        <a
+          href="/peta/admin"
+          className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm transition-all hover:border-pmi/40 hover:shadow-md"
+        >
+          <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-900/5 text-slate-700">
+            <i className="fa-solid fa-map-pin text-lg" aria-hidden="true"></i>
+          </span>
+          <span className="flex-1">
+            <span className="block text-sm font-bold text-slate-900">Kelola Peta & Antrean</span>
+            <span className="block text-xs text-slate-500">Tambah posko, konfirmasi kebutuhan pending</span>
+          </span>
+          <i className="fa-solid fa-chevron-right text-slate-300 transition-all group-hover:translate-x-0.5 group-hover:text-pmi" aria-hidden="true"></i>
+        </a>
+      </div>
+
       {/* Alarm MERAH */}
       {alarm > 0 && (
         <div className="flex items-center justify-between rounded-xl border border-merah-border bg-merah-soft px-4 py-3 animate-blinkRed relative z-10">

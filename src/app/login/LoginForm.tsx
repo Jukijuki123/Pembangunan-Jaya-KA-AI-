@@ -29,10 +29,11 @@ export default function LoginForm() {
         return;
       }
       show("Berhasil masuk. Mengarahkan...", "success");
+      // Hard navigation (bukan router.replace) — memaksa reload penuh agar
+      // state client & router cache sesi lama (relawan) benar-benar bersih.
       // Middleware akan mengarahkan ke beranda sesuai role.
       const callback = params.get("callbackUrl") || "/";
-      router.replace(callback);
-      router.refresh();
+      window.location.assign(callback);
     } catch {
       show("Gagal masuk. Coba lagi.", "error");
     } finally {

@@ -20,12 +20,22 @@ export default auth((req) => {
   const path = nextUrl.pathname;
 
   const isAdminArea =
-    path.startsWith("/admin") || path.startsWith("/rujukan");
+    path.startsWith("/admin") ||
+    path.startsWith("/rujukan") ||
+    path.startsWith("/peta/instansi") ||
+    path.startsWith("/peta/admin");
   const isRelawanArea = path.startsWith("/intake");
   const isLogin = path === "/login";
 
   // Sudah login tapi membuka /login → arahkan ke beranda sesuai role.
   if (isLogin && isLoggedIn) {
+    const home = role === "ADMIN" ? "/admin" : "/intake";
+    return NextResponse.redirect(new URL(home, nextUrl));
+  }
+
+  // Sudah login & membuka halaman publik "/" → arahkan ke beranda role
+  // (hindari landing page membingungkan setelah login ulang).
+  if (path === "/" && isLoggedIn) {
     const home = role === "ADMIN" ? "/admin" : "/intake";
     return NextResponse.redirect(new URL(home, nextUrl));
   }

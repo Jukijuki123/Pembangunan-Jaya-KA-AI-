@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "leaflet/dist/leaflet.css";
+import "leaflet.markercluster/dist/MarkerCluster.css";
+import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import { ToastProvider } from "@/components/Toast";
 import PwaRegister from "@/components/PwaRegister";
 import OfflineBanner from "@/components/OfflineBanner";

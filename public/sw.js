@@ -6,7 +6,7 @@
  * 3. Background Sync "sync-intake": kirim antrian intake (IndexedDB) ke
  *    /api/offline/sync saat koneksi pulih — otomatis, tanpa buka app.
  */
-const CACHE_NAME = "sigap-v1";
+const CACHE_NAME = "sigap-v2";
 const SHELL = ["/", "/login", "/manifest.json", "/icon-192.png", "/icon-512.png"];
 
 /* ── IndexedDB (antrian intake offline) ─────────────────── */
@@ -74,18 +74,21 @@ self.addEventListener("activate", (event) => {
 /* ── Runtime cache: fetch ───────────────────────────────── */
 self.addEventListener("fetch", (event) => {
   const req = event.request;
-  if (req.method !== "GET") return;
+  if (req.method !== "GET") return; // POST/PATCH/DELETE selalu ke network
 
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return; // jangan cache API eksternal
+  if (url.pathname.startsWith("/api/")) return; // API: selalu network (auth cookie)
 
   // Navigasi halaman: network-first, fallback cache → shell.
   if (req.mode === "navigate") {
     event.respondWith(
       fetch(req)
         .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE_NAME).then((c) => c.put(req, copy));
+          if (res && res.status === 200 && res.headers.get("content-type")?.includes("text/html")) {
+            const copy = res.clone();
+            caches.open(CACHE_NAME).then((c) => c.put(req, copy));
+          }
           return res;
         })
         .catch(() =>
@@ -95,10 +98,11 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Aset statis: stale-while-revalidate.
+  // Aset statis: cache-first, fallback network, TIDAK PERNAH return undefined.
   event.respondWith(
     caches.match(req).then((cached) => {
-      const network = fetch(req)
+      if (cached) return cached;
+      return fetch(req)
         .then((res) => {
           if (res && res.status === 200) {
             const copy = res.clone();
@@ -106,8 +110,7 @@ self.addEventListener("fetch", (event) => {
           }
           return res;
         })
-        .catch(() => cached);
-      return cached || network;
+        .catch(() => new Response("", { status: 503, statusText: "Offline" }));
     })
   );
 });
