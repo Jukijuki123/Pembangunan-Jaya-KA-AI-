@@ -7,28 +7,12 @@ import { prisma } from "@/lib/prisma";
 import { hitungSkor } from "@/lib/scoring";
 import { catatAudit } from "@/lib/audit";
 import { generateKodeUnik } from "@/lib/utils";
+import { simpanKasusIntake } from "@/lib/simpanKasus";
+import {
+  konfirmasiSchema,
+  type KonfirmasiInput,
+} from "@/lib/kasusSchema";
 import type { ProfilKerentanan } from "@/lib/types";
-
-const anggotaSchema = z.object({
-  hubungan: z.string().min(1),
-  usia: z.number().nullable(),
-  kondisiKhusus: z.string().nullable(),
-});
-
-const konfirmasiSchema = z.object({
-  agentThought: z.string().default(""),
-  namaKK: z.string().trim().nullable().transform(v => v === "" ? null : v).default(null),
-  usiaKK: z.number().int().min(0).max(130).nullable().optional().default(null),
-  anggotaKeluarga: z.array(anggotaSchema).default([]),
-  kondisiMedisKritis: z.array(z.string().trim().min(1)).default([]),
-  obatTersedia: z.boolean().nullable().optional().default(null),
-  mobilitas: z.enum(["mandiri", "bantuan", "tidak_bisa"]).nullable().optional().default(null),
-  asalLokasi: z.string().trim().nullable().optional().default(null),
-  instansiRujukan: z.enum(["DINAS_KESEHATAN", "DINAS_SOSIAL", "BPBD"]),
-  provenance: z.record(z.any()).optional(),
-});
-
-export type KonfirmasiInput = z.infer<typeof konfirmasiSchema>;
 
 type ActionResult =
   | { ok: true; kasusId: string; kodeUnik: string; level: string; skor: number }
@@ -50,58 +34,21 @@ export async function simpanKasusTerkonfirmasi(
     if (!parsed.success) {
       return { ok: false, error: parsed.error.issues[0]?.message ?? "Data tidak valid" };
     }
-    const d = parsed.data;
 
-    const profil: ProfilKerentanan = {
-      agentThought: d.agentThought,
-      namaKK: d.namaKK,
-      usiaKK: d.usiaKK,
-      anggotaKeluarga: d.anggotaKeluarga,
-      kondisiMedisKritis: d.kondisiMedisKritis,
-      obatTersedia: d.obatTersedia,
-      mobilitas: d.mobilitas,
-      asalLokasi: d.asalLokasi,
-      instansiRujukan: d.instansiRujukan,
-    };
-    const skor = hitungSkor(profil);
-
-    const kasus = await prisma.kasus.create({
-      data: {
-        kodeUnik: generateKodeUnik(),
-        sumberInput: "RELAWAN",
-        namaKK: d.namaKK,
-        usiaKK: d.usiaKK,
-        anggotaKeluarga: d.anggotaKeluarga,
-        kondisiMedisKritis: d.kondisiMedisKritis,
-        obatTersedia: d.obatTersedia,
-        mobilitas: d.mobilitas,
-        asalLokasi: d.asalLokasi,
-        agentThought: d.agentThought,
-        skorKerentanan: skor.skor,
-        levelPrioritas: skor.level,
-        instansiRujukan: d.instansiRujukan,
-        statusVerifikasiMedis: false,
-        status: "terverifikasi", // sudah dikonfirmasi relawan (Lapis 1)
-        provenance: d.provenance || undefined,
-        createdById: session.user.id,
-      },
-    });
-
-    await catatAudit({
-      aksi: "KONFIRMASI_INTAKE",
-      aktor: session.user.username,
-      kasusId: kasus.id,
-      detail: { skor: skor.skor, level: skor.level, rincian: skor.rincian },
-    });
+    const hasil = await simpanKasusIntake(
+      parsed.data,
+      session.user.id,
+      session.user.username
+    );
 
     revalidatePath("/admin");
     revalidatePath("/rujukan");
     return {
       ok: true,
-      kasusId: kasus.id,
-      kodeUnik: kasus.kodeUnik,
-      level: skor.level,
-      skor: skor.skor,
+      kasusId: hasil.id,
+      kodeUnik: hasil.kodeUnik,
+      level: hasil.level,
+      skor: hasil.skor,
     };
   } catch (err) {
     console.error("[simpanKasusTerkonfirmasi]", err);

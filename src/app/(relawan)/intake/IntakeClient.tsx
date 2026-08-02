@@ -12,13 +12,17 @@ import {
   AlertTriangle, 
   HelpCircle, 
   Database,
-  Volume2,
   FileText
 } from "lucide-react";
 import {
   simpanKasusTerkonfirmasi,
-  type KonfirmasiInput,
 } from "@/app/actions/kasus";
+import type { KonfirmasiInput } from "@/lib/kasusSchema";
+import { savePendingIntake } from "@/lib/idb";
+import {
+  registerBackgroundSync,
+  notifySwPendingChanged,
+} from "@/lib/syncClient";
 
 const CONTOH = [
   "Bapak Slamet Riyadi, usia 64 tahun, asal Kampung Cibadak. Mengalami sakit gula. Kaki lemas tidak bisa jalan. Tidak bawa obat.",
@@ -173,6 +177,25 @@ export default function IntakeClient() {
       };
       const res = await simpanKasusTerkonfirmasi(payload);
       if (!res.ok) {
+        // Jaringan putus / server tak terjangkau saat offline → simpan ke
+        // IndexedDB & daftarkan Background Sync. Data tidak hilang.
+        if (!navigator.onLine) {
+          const id = crypto.randomUUID();
+          await savePendingIntake({
+            id,
+            kasus: payload,
+            createdAt: new Date().toISOString(),
+          });
+          await registerBackgroundSync();
+          notifySwPendingChanged();
+          show(
+            "Tersimpan offline — akan sync otomatis saat sinyal kembali",
+            "success"
+          );
+          setProfil(null);
+          setTeks("");
+          return;
+        }
         show(res.error, "error");
         return;
       }
@@ -260,8 +283,8 @@ export default function IntakeClient() {
             onClick={toggleVoice}
             className={`rounded-xl border border-slate-200 ${listening ? "bg-red-50 text-red-600 border-red-200 animate-pulse" : ""}`}
           >
-            <Volume2 className="h-4.5 w-4.5 mr-1" />
-            {listening ? "Mendengar..." : "Suara"}
+            <i className="fa-solid fa-microphone mr-1.5" aria-hidden="true"></i>
+            {listening ? "Mendengar..." : "Voice"}
           </Button>
           <Button 
             variant="ghost" 

@@ -1,15 +1,20 @@
 import type { Kasus } from "@prisma/client";
 import { INSTANSI_LABEL } from "@/lib/utils";
 
-/** 
- * Escape satu sel CSV (RFC 4180). 
- * Menangani quote, koma, newline agar tidak merusak kolom Excel.
+/**
+ * Escape satu sel CSV.
+ * Delimiter pakai SEMICOLON (";") karena Excel Indonesia (locale id-ID)
+ * default-nya membaca semicolon sebagai pemisah kolom — koma malah bikin
+ * seluruh baris jadi satu kolom.
  */
+const DELIM = ";";
+
 function cell(value: unknown): string {
   if (value === null || value === undefined) return "";
   const s = String(value);
-  // Jika ada kutip ganda, koma, baris baru, atau spasi di awal/akhir, bungkus dengan kutip ganda.
-  if (/[",\r\n]/.test(s) || /^\s|\s$/.test(s)) {
+  // Kutip ganda di-escape; bungkus bila ada delimiter, kutip, newline,
+  // atau spasi di awal/akhir.
+  if (/[";,\r\n]/.test(s) || /^\s|\s$/.test(s)) {
     return `"${s.replace(/"/g, '""')}"`;
   }
   return s;
@@ -39,8 +44,14 @@ export function kasusToCsv(rows: Kasus[]): string {
 
   const lines = rows.map((k) => {
     const kondisi = Array.isArray(k.kondisiMedisKritis)
-      ? (k.kondisiMedisKritis as string[]).join("; ")
+      ? (k.kondisiMedisKritis as string[]).join(", ")
       : "";
+    const mobilitasLabel: Record<string, string> = {
+      mandiri: "Mandiri",
+      bantuan: "Bantuan",
+      tidak_bisa: "Tidak bisa",
+    };
+    const tgl = k.createdAt.toISOString().slice(0, 16).replace("T", " ");
     return [
       k.kodeUnik,
       k.instansiRujukan ? INSTANSI_LABEL[k.instansiRujukan] : "",
@@ -50,16 +61,22 @@ export function kasusToCsv(rows: Kasus[]): string {
       k.usiaKK ?? "",
       kondisi,
       k.obatTersedia === null ? "" : k.obatTersedia ? "Ya" : "Tidak",
-      k.mobilitas ?? "",
+      k.mobilitas ? mobilitasLabel[k.mobilitas] ?? k.mobilitas : "",
       k.asalLokasi ?? "",
       k.statusVerifikasiMedis ? "Sudah" : "Belum",
       k.status,
-      k.createdAt.toISOString(),
+      tgl,
     ]
       .map(cell)
-      .join(",");
+      .join(DELIM);
   });
 
-  // \uFEFF adalah Byte Order Mark (BOM) agar Microsoft Excel membaca UTF-8 dengan benar tanpa merusak karakter spesial (mis. huruf beraksen/emoji).
-  return "\uFEFF" + [header.map(cell).join(","), ...lines].join("\r\n");
+  // Baris pertama "sep=;" memberitahu Microsoft Excel/WPS (locale id-ID)
+  // bahwa delimiter adalah semicolon — tanpa ini, Excel kadang tetap
+  // membaca seluruh baris sebagai satu kolom.
+  // \uFEFF = Byte Order Mark agar Excel membaca UTF-8 dengan benar.
+  return (
+    "\uFEFFsep=;\r\n" +
+    [header.map(cell).join(DELIM), ...lines].join("\r\n")
+  );
 }

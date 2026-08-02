@@ -18,8 +18,8 @@ import {
  */
 const ai = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY });
 
-const MODEL_UTAMA = "gemini-2.5-flash";
-const MODEL_FALLBACK = "gemini-2.5-flash-lite";
+const MODEL_UTAMA = "gemini-3.6-flash";
+const MODEL_FALLBACK = "gemini-3.5-flash-lite";
 const GROQ_MODEL = "qwen/qwen3.6-27b";
 
 /**
@@ -170,15 +170,26 @@ async function callGroq(teks: string): Promise<string> {
 }
 
 /**
- * Helper: Tambahkan Timeout agar LLM tidak hanging hingga 2 menit
+ * Helper: Tambahkan Timeout agar LLM tidak hanging hingga 2 menit.
+ * Promise asli tetap di-handle (resolve/reject ditelan) supaya late
+ * rejection tidak menjadi unhandled rejection yang mematikan proses Node.
  */
 function withTimeout<T>(promise: Promise<T>, ms = 15000): Promise<T> {
-  return Promise.race([
-    promise,
-    new Promise<T>((_, reject) =>
-      setTimeout(() => reject(new Error(`Timeout setelah ${ms}ms`)), ms)
-    ),
-  ]);
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const timeoutPromise = new Promise<never>((_, reject) => {
+    timer = setTimeout(
+      () => reject(new Error(`Timeout setelah ${ms}ms`)),
+      ms
+    );
+  });
+  // Serap hasil promise asli (termasuk late rejection) agar tidak crash
+  promise.then(
+    () => {},
+    () => {}
+  );
+  return Promise.race([promise, timeoutPromise]).finally(() =>
+    clearTimeout(timer)
+  );
 }
 
 /**
@@ -189,21 +200,21 @@ function withTimeout<T>(promise: Promise<T>, ms = 15000): Promise<T> {
 export async function ekstrakProfil(teks: string): Promise<ProfilKerentanan> {
   let raw: string;
   try {
-    raw = await withTimeout(callGemini(MODEL_UTAMA, teks), 15000);
+    raw = await withTimeout(callGemini(MODEL_UTAMA, teks), 30000);
   } catch (err) {
     console.warn(
       `[gemini] model utama gagal, fallback ke ${MODEL_FALLBACK}:`,
       (err as Error).message
     );
     try {
-      raw = await withTimeout(callGemini(MODEL_FALLBACK, teks), 15000);
+      raw = await withTimeout(callGemini(MODEL_FALLBACK, teks), 30000);
     } catch (err2) {
       // Kedua model Gemini gagal -> fallback ke Groq
       console.warn(
         `[gemini] fallback juga gagal, beralih ke Groq (${GROQ_MODEL}):`,
         (err2 as Error).message
       );
-      raw = await withTimeout(callGroq(teks), 15000);
+      raw = await withTimeout(callGroq(teks), 30000);
     }
   }
 

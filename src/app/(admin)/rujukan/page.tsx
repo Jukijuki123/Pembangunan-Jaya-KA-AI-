@@ -41,12 +41,22 @@ export default async function RujukanPage() {
                 ({rows.length} kasus)
               </span>
             </h2>
+          <div className="flex items-center gap-2">
+            <a
+              href={`/api/rujukan/${inst.toLowerCase()}/xlsx`}
+              className="inline-flex items-center gap-2 rounded-lg bg-pmi px-3 py-1.5 text-xs font-semibold text-white hover:bg-pmi-dark"
+            >
+              <i className="fa-solid fa-file-excel" aria-hidden="true"></i>
+              Unduh Excel
+            </a>
             <a
               href={`/api/rujukan/${inst.toLowerCase()}/csv`}
-              className="rounded-lg bg-pmi px-3 py-1.5 text-xs font-semibold text-white hover:bg-pmi-dark"
+              className="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-50"
             >
-              ⬇ Unduh CSV
+              <i className="fa-solid fa-file-csv" aria-hidden="true"></i>
+              CSV
             </a>
+          </div>
           </div>
 
           <div className="overflow-x-auto">
@@ -86,9 +96,15 @@ export default async function RujukanPage() {
                       <td className="px-3 py-2 text-xs">{k.asalLokasi ?? "—"}</td>
                       <td className="px-3 py-2 text-xs">
                         {k.statusVerifikasiMedis ? (
-                          <span className="text-hijau">✓</span>
+                          <span className="text-hijau">
+                            <i className="fa-solid fa-circle-check" aria-hidden="true"></i>{" "}
+                            Sudah
+                          </span>
                         ) : k.levelPrioritas === "MERAH" ? (
-                          <span className="text-merah">belum</span>
+                          <span className="text-merah">
+                            <i className="fa-solid fa-circle-exclamation" aria-hidden="true"></i>{" "}
+                            belum
+                          </span>
                         ) : (
                           "—"
                         )}
